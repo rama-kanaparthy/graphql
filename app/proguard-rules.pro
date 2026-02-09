@@ -1,0 +1,17 @@
+# This is a configuration file for ProGuard.
+# http://proguard.sourceforge.net/index.html#manual/usage.html
+
+-dontusemixedcaseclassnames
+-verbose
+
+# Preserve line numbers for debugging stack traces
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
+
+# Keep the BuildConfig
+-keep class **.BuildConfig { *; }
+
+# Keep R classes
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
