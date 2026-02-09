@@ -1,10 +1,13 @@
 package com.example.app
 
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -13,26 +16,20 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
-    
+
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
+
+    @Test
+    fun testGreetingIsDisplayed() {
+        // Check if the greeting text is displayed in the Compose UI
+        composeTestRule.onNodeWithText("Hello Android!").assertIsDisplayed()
+    }
+
     @Test
     fun useAppContext() {
         // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        val appContext = composeTestRule.activity.applicationContext
         assertEquals("com.example.app", appContext.packageName)
-    }
-
-    @Test
-    fun testAppNameExists() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val appName = appContext.getString(R.string.app_name)
-        assertNotNull(appName)
-        assertTrue(appName.isNotEmpty())
-    }
-
-    @Test
-    fun testStringResourcesExist() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val helloWorld = appContext.getString(R.string.hello_world)
-        assertEquals("Hello, World!", helloWorld)
     }
 }
